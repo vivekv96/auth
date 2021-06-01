@@ -40,7 +40,7 @@ func Forgot(c *fiber.Ctx) error {
 	message := []byte(fmt.Sprintf(urlFormat, url))
 
 	// MailHog SMTP bind address
-	err := smtp.SendMail("0.0.0.0:1025", nil, from, to, message)
+	err := smtp.SendMail("mailhog-server:1025", nil, from, to, message)
 	if err != nil {
 		return err
 	}

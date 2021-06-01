@@ -30,6 +30,9 @@ func ConnectToMySQL(conf *MySQLConfig) error {
 
 	Gorm = db
 
+	Gorm.Exec("CREATE DATABASE IF NOT EXISTS `auth`")
+	Gorm.Exec("USE `auth`")
+
 	if err := Gorm.AutoMigrate(&models.User{}, &models.PasswordReset{}); err != nil {
 		log.Fatalln("auto-migrate failed, err: ", err)
 	}
