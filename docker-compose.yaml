@@ -1,0 +1,46 @@
+version: '3'
+services:
+  app:
+    container_name: auth
+    build: .
+    ports:
+      - 8000:8000
+    restart: on-failure
+    volumes:
+      - api:/usr/src/app/
+    depends_on:
+      - mysql-server
+      - mailhog
+    networks:
+      - fullstack
+
+
+  mysql-server:
+    image: mysql:latest
+    container_name: full_db_mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root123
+    volumes:
+      - database_mysql:/var/lib/mysql
+    networks:
+      - fullstack
+
+  mailhog-server:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'
+    ports:
+      - 1025:1025 #smtp server
+      - 8025:8025 #web UI
+    networks:
+      - fullstack
+
+volumes:
+  api:
+  database_mysql:
+
+networks:
+  fullstack:
+    driver: bridge

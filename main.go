@@ -11,11 +11,11 @@ import (
 
 func main() {
 	if err := database.ConnectToMySQL(&database.MySQLConfig{
-		Host:     "127.0.0.1",
+		Host:     "mysql-server",
 		Username: "root",
 		Password: "root123",
 		Port:     3306,
-		DBName:   "auth",
+		DBName:   "mysql",
 	}); err != nil {
 		log.Fatalln(err)
 	}
